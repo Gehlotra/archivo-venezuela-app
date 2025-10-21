@@ -2,8 +2,8 @@ streamlit
 requests
 pandas
 python-dotenv
+beautifulsoup4
 google-generativeai
 google-auth
 google-auth-oauthlib
-beautifulsoup4
-googletrans==4.0.0-rc1
+deep-translator
