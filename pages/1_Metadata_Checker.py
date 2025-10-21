@@ -10,10 +10,19 @@ from bs4 import BeautifulSoup
 # ----------------------------------------
 st.set_page_config(page_title="Archivo Venezuela — Metadata Checker", layout="wide")
 
-# Load environment variables
+# Load environment variables (for local dev)
+from dotenv import load_dotenv
 load_dotenv()
-OMEKA_API_URL = os.getenv("OMEKA_API_URL", "https://archivovenezuela.com/test/api/items")
-OMEKA_API_KEY = os.getenv("OMEKA_API_KEY", "")
+
+# Unified configuration loader: works locally + Streamlit Cloud
+def get_env_var(key, default=""):
+    if "secrets" in dir(st) and key in st.secrets:
+        return st.secrets[key]
+    return os.getenv(key, default)
+
+OMEKA_API_URL = get_env_var("OMEKA_API_URL", "https://archivovenezuela.com/test/api/items")
+OMEKA_API_KEY = get_env_var("OMEKA_API_KEY", "")
+
 
 # ----------------------------------------
 # HEADER
