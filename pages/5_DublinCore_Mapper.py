@@ -1,7 +1,7 @@
 import streamlit as st
 import os, json, pandas as pd
 from dotenv import load_dotenv
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
 # ---------------------------
 # CONFIG
@@ -12,25 +12,24 @@ st.title("🌍 Bilingual Dublin Core Mapper + Validator")
 st.info("""
 This tool converts your aggregated `raw_metadata.json` into **bilingual Dublin Core (English + Spanish)** records,
 validates metadata completeness, and exports two files:
-- `dublin_core_bilingual.csv` → main dataset
+- `dublin_core_bilingual.csv` → main dataset  
 - `metadata_issues.csv` → incomplete or invalid records
 """)
 
 load_dotenv()
 os.makedirs("data", exist_ok=True)
-translator = Translator()
 
 # ---------------------------
 # HELPERS
 # ---------------------------
 def translate_text(text):
-    """Translate text using Google Translate (English→Spanish, automatic detection)."""
+    """Translate text using Google Translator (auto→Spanish)."""
     if not text or not isinstance(text, str):
         return ""
     try:
-        return translator.translate(text, dest="es").text
+        return GoogleTranslator(source="auto", target="es").translate(text)
     except Exception:
-        return text  # fallback
+        return text  # fallback if translation fails
 
 def validate_record(dc_row):
     """Return list of missing required Dublin Core fields."""
@@ -65,9 +64,6 @@ def map_to_dublin_core(item):
 # ---------------------------
 # MAIN
 # ---------------------------
-import os, json, pandas as pd
-import streamlit as st
-
 # Attempt to locate metadata JSON in multiple common paths
 possible_paths = [
     "data/raw_metadata.json",

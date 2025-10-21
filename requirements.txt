@@ -6,4 +6,8 @@ beautifulsoup4
 google-generativeai
 google-auth
 google-auth-oauthlib
+google-generativeai
+google-auth
+google-auth-oauthlib
+beautifulsoup4
 deep-translator
