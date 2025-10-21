@@ -1,5 +1,9 @@
 streamlit
-pandas
 requests
+pandas
 python-dotenv
+google-generativeai
+google-auth
+google-auth-oauthlib
+beautifulsoup4
 googletrans==4.0.0-rc1
